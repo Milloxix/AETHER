@@ -1323,20 +1323,24 @@ footer {
   }
   .radar-right {
     width: 100%;
-    overflow: hidden;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .radar-svg-container {
-    width: 100% !important;
-    max-width: 320px !important;
+    width: 300px !important;
+    max-width: 300px !important;
+    height: 220px !important;
     margin: 0 auto !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     display: block !important;
+    flex-shrink: 0 !important;
   }
   #radarSvg {
-    width: 100% !important;
-    height: auto !important;
-    max-width: 320px !important;
-    display: block !important;
+    width: 300px !important;
+    height: 220px !important;
+    overflow: visible !important;
   }
   
   /* The Difference Before/After stacking */
@@ -1397,11 +1401,17 @@ footer {
   .hiw-timeline-item:not(:last-child)::before {
     content: "";
     position: absolute;
-    top: 60px; /* Bottom edge of current node */
-    bottom: -2rem; /* Extends exactly to top edge of next node */
-    left: 30px; /* Centered in the 60px node column */
-    width: 1px;
-    border-left: 1.5px dashed rgba(255, 255, 255, 0.28); /* Cleaner, slightly more visible white dashed line */
+    top: 62px;
+    bottom: -2rem;
+    left: 29px;
+    width: 2px;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.35) 0px,
+      rgba(255,255,255,0.35) 6px,
+      transparent 6px,
+      transparent 12px
+    );
     z-index: 1;
     pointer-events: none;
   }
