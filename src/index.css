@@ -1315,17 +1315,52 @@ footer {
     display: none;
   }
 
-  /* Radar Chart — hide SVG on mobile, bars are enough */
+  /* Radar Chart — mobile layout */
   .radar-section {
     grid-template-columns: 1fr !important;
-    gap: 2rem !important;
+    gap: 0 !important;
     max-width: 100% !important;
   }
-  .radar-right {
-    display: none !important;
+  /* Move radar SVG between the two text blocks on mobile */
+  .radar-section {
+    display: flex !important;
+    flex-direction: column !important;
   }
   .radar-left {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  /* Insert radar between h3 and metrics by reordering */
+  .radar-left h3 {
+    order: 1;
+  }
+  .radar-left p {
+    order: 2;
+  }
+  .radar-right {
+    order: 3;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin: 1.5rem 0 !important;
+  }
+  .radar-svg-container {
+    width: 260px !important;
+    height: 190px !important;
+    margin: 0 auto !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+  #radarSvg {
+    width: 260px !important;
+    height: 190px !important;
+    overflow: visible !important;
+  }
+  .radar-metrics {
+    order: 4;
+    margin-top: 1.5rem;
   }
   
   /* The Difference Before/After stacking */

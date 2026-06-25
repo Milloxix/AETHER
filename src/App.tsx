@@ -43,7 +43,7 @@ const CountUpValue = ({ target, duration = 1200 }: { target: number; duration?: 
 
 const TypewriterText = ({ text, delayMs = 500 }: { text: string; delayMs?: number }) => {
   const [displayText, setDisplayText] = useState("");
-  const [showCursor, setShowCursor] = useState(true);
+  const [cursorState, setCursorState] = useState<"blinking" | "fading" | "hidden">("blinking");
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>;
@@ -55,7 +55,9 @@ const TypewriterText = ({ text, delayMs = 500 }: { text: string; delayMs?: numbe
         i++;
         if (i >= text.length) {
           clearInterval(intervalId);
-          setTimeout(() => setShowCursor(false), 3000); // Hide cursor after 3s
+          // Wait 2s then fade out over 1.5s
+          setTimeout(() => setCursorState("fading"), 2000);
+          setTimeout(() => setCursorState("hidden"), 3500);
         }
       }, 60);
       return () => clearInterval(intervalId);
@@ -67,10 +69,16 @@ const TypewriterText = ({ text, delayMs = 500 }: { text: string; delayMs?: numbe
   return (
     <>
       {displayText}
-      {showCursor && (
+      {cursorState !== "hidden" && (
         <motion.span
-          animate={{ opacity: [1, 0] }}
-          transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
+          animate={cursorState === "blinking" 
+            ? { opacity: [1, 0] }
+            : { opacity: 0 }
+          }
+          transition={cursorState === "blinking"
+            ? { duration: 0.8, repeat: Infinity, repeatType: "reverse" }
+            : { duration: 1.5, ease: "easeOut" }
+          }
           className="inline-block w-[3px] h-[0.9em] bg-white/70 ml-[2px] align-baseline"
         />
       )}
