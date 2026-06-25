@@ -1282,6 +1282,9 @@ footer {
   .s-h2 {
     font-size: 28px;
   }
+  .s-sub {
+    margin-bottom: 2.5rem;
+  }
   .trio-grid, .compare-cards, .pricing-grid, .radar-section, .hiw-wrap {
     grid-template-columns: 1fr;
   }
@@ -1315,52 +1318,17 @@ footer {
     display: none;
   }
 
-  /* Radar Chart — mobile layout */
+  /* Radar Chart — mobile: single column, hide SVG */
   .radar-section {
     grid-template-columns: 1fr !important;
-    gap: 0 !important;
+    gap: 2rem !important;
     max-width: 100% !important;
   }
-  /* Move radar SVG between the two text blocks on mobile */
-  .radar-section {
-    display: flex !important;
-    flex-direction: column !important;
+  .radar-right {
+    display: none !important;
   }
   .radar-left {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-  /* Insert radar between h3 and metrics by reordering */
-  .radar-left h3 {
-    order: 1;
-  }
-  .radar-left p {
-    order: 2;
-  }
-  .radar-right {
-    order: 3;
-    width: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    margin: 1.5rem 0 !important;
-  }
-  .radar-svg-container {
-    width: 260px !important;
-    height: 190px !important;
-    margin: 0 auto !important;
-    overflow: visible !important;
-    display: block !important;
-  }
-  #radarSvg {
-    width: 260px !important;
-    height: 190px !important;
-    overflow: visible !important;
-  }
-  .radar-metrics {
-    order: 4;
-    margin-top: 1.5rem;
   }
   
   /* The Difference Before/After stacking */
