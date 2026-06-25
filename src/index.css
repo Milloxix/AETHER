@@ -859,6 +859,11 @@ nav {
   text-align: right;
   flex-shrink: 0;
 }
+/* Hide mobile timeline on desktop */
+.hiw-mobile-timeline {
+  display: none;
+}
+
 /* Ref 3 style radar — dashed grid circles, filled data polygon, dot markers on axes */
 .radar-right {
   display: flex;
@@ -1311,14 +1316,27 @@ footer {
   }
 
   /* Radar Chart */
+  .radar-section {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+    max-width: 100% !important;
+  }
+  .radar-right {
+    width: 100%;
+    overflow: hidden;
+  }
   .radar-svg-container {
     width: 100% !important;
-    max-width: 340px !important;
+    max-width: 320px !important;
     margin: 0 auto !important;
+    overflow: hidden !important;
+    display: block !important;
   }
   #radarSvg {
     width: 100% !important;
     height: auto !important;
+    max-width: 320px !important;
+    display: block !important;
   }
   
   /* The Difference Before/After stacking */
@@ -1349,6 +1367,15 @@ footer {
     opacity: 1 !important;
     transform: none !important;
     background: rgba(255, 255, 255, 0.02);
+  }
+
+  /* Show mobile timeline on mobile */
+  .hiw-mobile-timeline {
+    display: block;
+    max-width: 600px;
+    margin: 2rem auto 0;
+    padding: 0 1rem;
+    position: relative;
   }
 
   /* Mobile vertical timeline visual */

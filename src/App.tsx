@@ -11,22 +11,32 @@ import {
 const CountUpValue = ({ target, duration = 1200 }: { target: number; duration?: number }) => {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
   const hasStarted = useRef(false);
 
   useEffect(() => {
-    if (!inView || hasStarted.current) return;
-    hasStarted.current = true;
-    const start = performance.now();
-    const tick = (now: number) => {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.round(eased * target));
-      if (progress < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }, [inView, target, duration]);
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !hasStarted.current) {
+          hasStarted.current = true;
+          const start = performance.now();
+          const tick = (now: number) => {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setCount(Math.round(eased * target));
+            if (progress < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [target, duration]);
 
   return <span ref={ref}>{count}</span>;
 };
@@ -686,7 +696,7 @@ export default function App() {
         </div>
 
         {/* Mobile vertical timeline visual (visible on screens < 768px) */}
-        <div className="hiw-mobile-timeline md:hidden">
+        <div className="hiw-mobile-timeline">
           <div className="hiw-timeline-wrapper">
             {howItWorksSteps.map((step) => (
               <div className="hiw-timeline-item" key={step.number}>
