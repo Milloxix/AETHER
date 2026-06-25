@@ -1067,7 +1067,7 @@ export default function App() {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ type: "spring", stiffness: 100, damping: 10, delay: 0.7 }}
                   style={{ transformOrigin: "0px -88px", cursor: "pointer" }}
-                  onMouseEnter={() => setHoveredPoint({ x: 0, y: -88, label: "Tone: 92" })}
+                  onMouseEnter={() => setHoveredPoint({ x: 0, y: -88, label: "Tone: 88" })}
                   onMouseLeave={() => setHoveredPoint(null)}
                 />
                 <motion.circle cx="68" cy="-22" r="6" fill="#fff" opacity="0.6"
@@ -1094,7 +1094,7 @@ export default function App() {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ type: "spring", stiffness: 100, damping: 10, delay: 0.85 }}
                   style={{ transformOrigin: "-48px 62px", cursor: "pointer" }}
-                  onMouseEnter={() => setHoveredPoint({ x: -48, y: 62, label: "Edge: 78" })}
+                  onMouseEnter={() => setHoveredPoint({ x: -48, y: 62, label: "Edge: 81" })}
                   onMouseLeave={() => setHoveredPoint(null)}
                 />
                 <motion.circle cx="-72" cy="-24" r="6" fill="#fff" opacity="0.7"
@@ -1103,7 +1103,7 @@ export default function App() {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ type: "spring", stiffness: 100, damping: 10, delay: 0.9 }}
                   style={{ transformOrigin: "-72px -24px", cursor: "pointer" }}
-                  onMouseEnter={() => setHoveredPoint({ x: -72, y: -24, label: "Consistency: 80" })}
+                  onMouseEnter={() => setHoveredPoint({ x: -72, y: -24, label: "Consistency: 76" })}
                   onMouseLeave={() => setHoveredPoint(null)}
                 />
 
