@@ -1,11 +1,35 @@
 import React, { useState, useEffect, useRef, MouseEvent, FormEvent } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useInView } from "motion/react";
 import { 
   howItWorksSteps, 
   trioCards, 
   radarMetrics, 
   faqList
 } from "./data";
+
+// Count-up animation component for metric values
+const CountUpValue = ({ target, duration = 1200 }: { target: number; duration?: number }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const hasStarted = useRef(false);
+
+  useEffect(() => {
+    if (!inView || hasStarted.current) return;
+    hasStarted.current = true;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * target));
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [inView, target, duration]);
+
+  return <span ref={ref}>{count}</span>;
+};
 
 const TypewriterText = ({ text, delayMs = 500 }: { text: string; delayMs?: number }) => {
   const [displayText, setDisplayText] = useState("");
@@ -925,7 +949,7 @@ export default function App() {
                       transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                     />
                   </div>
-                  <span className="rm-val">{m.value}</span>
+                  <span className="rm-val"><CountUpValue target={m.value} /></span>
                 </div>
               ))}
             </div>
@@ -959,9 +983,9 @@ export default function App() {
 
             <div 
               className="radar-svg-container" 
-              style={{ width: "100%", maxWidth: "400px", margin: "0 auto", overflow: "hidden" }}
+              style={{ width: "100%", maxWidth: "650px", margin: "0 auto", overflow: "visible" }}
             >
-              <svg id="radarSvg" width="100%" height="auto" className="overflow-visible" viewBox="-40 0 320 280" xmlns="http://www.w3.org/2000/svg" style={{ overflow: "visible" }}>
+              <svg id="radarSvg" width="100%" height="auto" className="overflow-visible" viewBox="-45 -5 370 255" xmlns="http://www.w3.org/2000/svg" style={{ overflow: "visible" }}>
               <g transform="translate(140,140)">
                 {/* dashed grid pentagons */}
                 <polygon 

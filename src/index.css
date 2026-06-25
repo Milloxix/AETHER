@@ -808,7 +808,7 @@ nav {
   grid-template-columns: 1fr 1fr;
   gap: 5rem;
   align-items: center;
-  max-width: 920px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 .radar-left h3 {
@@ -891,8 +891,8 @@ nav {
   border: 0.5px solid rgba(255, 255, 255, 0.35);
 }
 #radarSvg {
-  width: 280px;
-  height: 280px;
+  width: 420px;
+  height: 420px;
 }
 
 /* ===================== PRICING ===================== */
@@ -1312,13 +1312,13 @@ footer {
 
   /* Radar Chart */
   .radar-svg-container {
-    width: 100%;
-    max-width: 400px;
-    padding: 0 2rem;
+    width: 100% !important;
+    max-width: 340px !important;
+    margin: 0 auto !important;
   }
   #radarSvg {
-    width: 100%;
-    height: auto;
+    width: 100% !important;
+    height: auto !important;
   }
   
   /* The Difference Before/After stacking */
