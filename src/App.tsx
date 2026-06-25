@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, MouseEvent, FormEvent } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { 
   howItWorksSteps, 
   trioCards, 
@@ -7,7 +7,45 @@ import {
   faqList
 } from "./data";
 
+const TypewriterText = ({ text, delayMs = 500 }: { text: string; delayMs?: number }) => {
+  const [displayText, setDisplayText] = useState("");
+  const [showCursor, setShowCursor] = useState(true);
+
+  useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+    
+    timeoutId = setTimeout(() => {
+      let i = 0;
+      const intervalId = setInterval(() => {
+        setDisplayText(text.slice(0, i + 1));
+        i++;
+        if (i >= text.length) {
+          clearInterval(intervalId);
+          setTimeout(() => setShowCursor(false), 3000); // Hide cursor after 3s
+        }
+      }, 60);
+      return () => clearInterval(intervalId);
+    }, delayMs);
+
+    return () => clearTimeout(timeoutId);
+  }, [text, delayMs]);
+
+  return (
+    <>
+      {displayText}
+      {showCursor && (
+        <motion.span
+          animate={{ opacity: [1, 0] }}
+          transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
+          className="inline-block w-[3px] h-[0.9em] bg-white/70 ml-[2px] align-baseline"
+        />
+      )}
+    </>
+  );
+};
+
 export default function App() {
+  const [hoveredPoint, setHoveredPoint] = useState<{ x: number, y: number, label: string } | null>(null);
   // Billing cycle state: false for monthly, true for annual
   const [isAnnual, setIsAnnual] = useState(false);
 
@@ -391,7 +429,7 @@ export default function App() {
           </div>
           <h1 className="hero-h1">
             AI that writes<br />
-            <span className="dim font-sans font-medium">exactly like you.</span>
+            <span className="dim font-sans font-medium"><TypewriterText text="exactly like you." delayMs={600} /></span>
           </h1>
           <p className="hero-sub" style={{ marginBottom: "11.25rem" }}>
             Feed it your writing once. Get content that sounds like you forever.
@@ -897,17 +935,33 @@ export default function App() {
           <div className="radar-right">
 
             <div className="radar-legend">
-              <div className="rl-item">
+              <motion.div 
+                className="rl-item"
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+              >
                 <span className="rl-dot you"></span>
                 <span>You</span>
-              </div>
-              <div className="rl-item">
+              </motion.div>
+              <motion.div 
+                className="rl-item"
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, ease: "easeOut", delay: 0.15 }}
+              >
                 <span className="rl-dot avg"></span>
                 <span>Average writer</span>
-              </div>
+              </motion.div>
             </div>
 
-            <svg id="radarSvg" className="overflow-visible" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" style={{ overflow: "visible" }}>
+            <div 
+              className="radar-svg-container" 
+              style={{ width: "100%", maxWidth: "400px", margin: "0 auto", overflow: "hidden" }}
+            >
+              <svg id="radarSvg" width="100%" height="auto" className="overflow-visible" viewBox="-40 0 320 280" xmlns="http://www.w3.org/2000/svg" style={{ overflow: "visible" }}>
               <g transform="translate(140,140)">
                 {/* dashed grid pentagons */}
                 <polygon 
@@ -973,40 +1027,50 @@ export default function App() {
                 />
 
                 {/* you indicator dots (larger, bright) */}
-                <motion.circle cx="0" cy="-88" r="4" fill="#fff" opacity="0.8"
+                <motion.circle cx="0" cy="-88" r="6" fill="#fff" opacity="0.8"
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 0.8 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ type: "spring", stiffness: 100, damping: 10, delay: 0.7 }}
-                  style={{ transformOrigin: "0px -88px" }}
+                  style={{ transformOrigin: "0px -88px", cursor: "pointer" }}
+                  onMouseEnter={() => setHoveredPoint({ x: 0, y: -88, label: "Tone: 92" })}
+                  onMouseLeave={() => setHoveredPoint(null)}
                 />
-                <motion.circle cx="68" cy="-22" r="4" fill="#fff" opacity="0.6"
+                <motion.circle cx="68" cy="-22" r="6" fill="#fff" opacity="0.6"
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 0.6 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ type: "spring", stiffness: 100, damping: 10, delay: 0.75 }}
-                  style={{ transformOrigin: "68px -22px" }}
+                  style={{ transformOrigin: "68px -22px", cursor: "pointer" }}
+                  onMouseEnter={() => setHoveredPoint({ x: 68, y: -22, label: "Rhythm: 72" })}
+                  onMouseLeave={() => setHoveredPoint(null)}
                 />
-                <motion.circle cx="56" cy="76" r="4" fill="#fff" opacity="0.8"
+                <motion.circle cx="56" cy="76" r="6" fill="#fff" opacity="0.8"
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 0.8 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ type: "spring", stiffness: 100, damping: 10, delay: 0.8 }}
-                  style={{ transformOrigin: "56px 76px" }}
+                  style={{ transformOrigin: "56px 76px", cursor: "pointer" }}
+                  onMouseEnter={() => setHoveredPoint({ x: 56, y: 76, label: "Vocabulary: 94" })}
+                  onMouseLeave={() => setHoveredPoint(null)}
                 />
-                <motion.circle cx="-48" cy="62" r="4" fill="#fff" opacity="0.65"
+                <motion.circle cx="-48" cy="62" r="6" fill="#fff" opacity="0.65"
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 0.65 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ type: "spring", stiffness: 100, damping: 10, delay: 0.85 }}
-                  style={{ transformOrigin: "-48px 62px" }}
+                  style={{ transformOrigin: "-48px 62px", cursor: "pointer" }}
+                  onMouseEnter={() => setHoveredPoint({ x: -48, y: 62, label: "Edge: 78" })}
+                  onMouseLeave={() => setHoveredPoint(null)}
                 />
-                <motion.circle cx="-72" cy="-24" r="4" fill="#fff" opacity="0.7"
+                <motion.circle cx="-72" cy="-24" r="6" fill="#fff" opacity="0.7"
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 0.7 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ type: "spring", stiffness: 100, damping: 10, delay: 0.9 }}
-                  style={{ transformOrigin: "-72px -24px" }}
+                  style={{ transformOrigin: "-72px -24px", cursor: "pointer" }}
+                  onMouseEnter={() => setHoveredPoint({ x: -72, y: -24, label: "Consistency: 80" })}
+                  onMouseLeave={() => setHoveredPoint(null)}
                 />
 
                 {/* label texts */}
@@ -1015,9 +1079,42 @@ export default function App() {
                 <text x="65" y="96" fontSize="9" fill="rgba(255,255,255,0.4)" fontFamily="Inter,sans-serif">Vocabulary</text>
                 <text x="-102" y="96" fontSize="9" fill="rgba(255,255,255,0.4)" fontFamily="Inter,sans-serif">Edge</text>
                 <text x="-102" y="-28" textAnchor="end" fontSize="9" fill="rgba(255,255,255,0.4)" fontFamily="Inter,sans-serif">Consistency</text>
+
+                {/* Tooltip */}
+                <AnimatePresence>
+                  {hoveredPoint && (
+                    <motion.g 
+                      initial={{ opacity: 0, x: hoveredPoint.x, y: hoveredPoint.y - 15 }}
+                      animate={{ opacity: 1, x: hoveredPoint.x, y: hoveredPoint.y - 25 }}
+                      exit={{ opacity: 0, x: hoveredPoint.x, y: hoveredPoint.y - 15 }}
+                      transition={{ duration: 0.15 }}
+                      style={{ pointerEvents: "none" }}
+                    >
+                      <foreignObject x="-75" y="-20" width="150" height="40" style={{ overflow: "visible" }}>
+                        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                          <div style={{
+                            backgroundColor: '#0a0a0a',
+                            color: '#fff',
+                            border: '0.5px solid rgba(255,255,255,0.15)',
+                            borderRadius: '6px',
+                            padding: '6px 12px',
+                            fontSize: '11px',
+                            fontWeight: 500,
+                            fontFamily: 'Inter, sans-serif',
+                            whiteSpace: 'nowrap',
+                            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.5)'
+                          }}>
+                            {hoveredPoint.label}
+                          </div>
+                        </div>
+                      </foreignObject>
+                    </motion.g>
+                  )}
+                </AnimatePresence>
               </g>
             </svg>
           </div>
+        </div>
         </div>
       </section>
 
@@ -1121,9 +1218,21 @@ export default function App() {
                   {item.question}
                   <span className="faq-icon">+</span>
                 </div>
-                <p className="faq-a" style={{ display: isOpen ? "block" : "none" }}>
-                  {item.answer}
-                </p>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      style={{ overflow: "hidden" }}
+                    >
+                      <p className="faq-a" style={{ display: "block" }}>
+                        {item.answer}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             );
           })}
