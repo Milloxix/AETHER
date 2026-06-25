@@ -64,6 +64,15 @@ nav {
   display: flex;
   justify-content: flex-end;
 }
+.nav-social-link {
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+}
+.nav-social-link:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
 .logo {
   font-size: 14px;
   font-weight: 500;
@@ -1098,7 +1107,7 @@ nav {
 
 /* ===================== FINAL CTA ===================== */
 .final {
-  padding: 5rem 5rem;
+  padding: 3.5rem 5rem 5rem;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -1117,7 +1126,7 @@ nav {
 .final-mark {
   font-size: 28px;
   color: rgba(255, 255, 255, 0.08);
-  margin-bottom: 2rem;
+  margin-bottom: 3.5rem;
   letter-spacing: 0.1em;
 }
 .final-h2 {
@@ -1292,5 +1301,167 @@ footer {
     opacity: 1; 
     text-shadow: 0 0 12px rgba(255,255,255,0.9), 0 0 30px rgba(255,255,255,0.4), 0 0 50px rgba(255,255,255,0.15);
     transform: scale(1.12);
+  }
+}
+
+@media (max-width: 768px) {
+  /* Hide navbar social link on mobile */
+  .nav-right .nav-social-link {
+    display: none;
+  }
+
+  /* Radar Chart */
+  #radarSvg {
+    width: 100%;
+    height: auto;
+    max-width: 400px;
+    margin: 0 auto;
+    display: block;
+  }
+  
+  /* The Difference Before/After stacking */
+  .compare-outer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .compare-header, .compare-cards {
+    display: contents;
+  }
+  .c-lbl.bad { order: 1; margin-bottom: 4px; }
+  .cc.bad { order: 2; margin-bottom: 24px; }
+  .c-lbl.good { order: 3; margin-bottom: 4px; }
+  .cc.good { order: 4; }
+
+  /* How it works mobile stacking */
+  .hiw-agenda-container {
+    display: none !important;
+  }
+  .hiw-agenda-left {
+    display: none !important;
+  }
+  .hiw-agenda-right {
+    gap: 16px;
+  }
+  .agenda-text-block {
+    opacity: 1 !important;
+    transform: none !important;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  /* Mobile vertical timeline visual */
+  .hiw-mobile-timeline {
+    max-width: 600px;
+    margin: 3rem auto 0;
+    padding: 0;
+    position: relative;
+  }
+
+  .hiw-timeline-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* Vertical dashed line connecting edges of nodes */
+  .hiw-timeline-item:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    top: 60px; /* Bottom edge of current node */
+    bottom: -2rem; /* Extends exactly to top edge of next node */
+    left: 30px; /* Centered in the 60px node column */
+    width: 1px;
+    border-left: 1.5px dashed rgba(255, 255, 255, 0.28); /* Cleaner, slightly more visible white dashed line */
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .hiw-timeline-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Connector line from node to card */
+  .hiw-timeline-item::after {
+    content: "";
+    position: absolute;
+    top: 30px; /* Middle of 60px node */
+    left: 60px; /* From right edge of node */
+    width: 1.5rem; /* Connector width reaching the card across the gap */
+    height: 1px;
+    border-top: 1.5px dashed rgba(255, 255, 255, 0.25); /* More visible and consistent horizontal connection */
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .hiw-timeline-node-col {
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .hiw-timeline-node {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #030303;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    flex-shrink: 0;
+  }
+
+  .hiw-node-text {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .hiw-timeline-content-col {
+    flex-grow: 1;
+  }
+
+  .hiw-timeline-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 1.25rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  }
+
+  .hiw-timeline-title {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hiw-timeline-desc {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.5;
+  }
+
+  /* Voice Intelligence Typography */
+  .radar-left h3 {
+    text-align: center;
+    font-size: 24px;
+  }
+  .radar-left p {
+    text-align: center;
   }
 }

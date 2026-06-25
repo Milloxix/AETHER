@@ -161,7 +161,7 @@ export const faqList: FAQItem[] = [
   {
     id: 6,
     question: "What payment methods do you accept?",
-    answer: "PayPal and crypto. Simple, no hidden fees, cancel anytime."
+    answer: "All major credit and debit cards, PayPal, and crypto. No hidden fees, cancel anytime."
   }
 ];
 

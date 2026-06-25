@@ -365,8 +365,13 @@ export default function App() {
             <span onClick={() => scrollToSection("pricing")}>Pricing</span>
           </div>
         </div>
-        <div className="nav-right">
-          <button className="nav-btn" onClick={() => document.getElementById('final-cta')?.scrollIntoView({ behavior: 'smooth' })}>Request Early Access</button>
+        <div className="nav-right" style={{ gap: '1.5rem', alignItems: 'center' }}>
+          <a href="https://x.com/TheAetherApp" target="_blank" rel="noopener noreferrer" className="nav-social-link">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="14" height="14">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+            </svg>
+          </a>
+          <button className="nav-btn" onClick={() => document.getElementById('final-cta')?.scrollIntoView({ behavior: 'smooth' })}>Get Early Access</button>
         </div>
       </nav>
 
@@ -457,7 +462,7 @@ export default function App() {
           From raw writing samples to content that sounds exactly like you — in minutes.
         </p>
 
-        <div className="hiw-agenda-container">
+        <div className="hiw-agenda-container hidden md:grid">
           {/* Left panel: Agenda wheel + Bowing track on desktop */}
           <div className="hiw-agenda-left">
             <div className="agenda-wheel-wrapper">
@@ -613,6 +618,29 @@ export default function App() {
                   <h3 className="agenda-title">{step.title}</h3>
                 </div>
                 <p className="agenda-desc">{step.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile vertical timeline visual (visible on screens < 768px) */}
+        <div className="hiw-mobile-timeline md:hidden">
+          <div className="hiw-timeline-wrapper">
+            {howItWorksSteps.map((step) => (
+              <div className="hiw-timeline-item" key={step.number}>
+                {/* Node column */}
+                <div className="hiw-timeline-node-col">
+                  <div className="hiw-timeline-node">
+                    <span className="hiw-node-text">PART {step.number}</span>
+                  </div>
+                </div>
+                {/* Content column */}
+                <div className="hiw-timeline-content-col">
+                  <div className="hiw-timeline-card">
+                    <h3 className="hiw-timeline-title">{step.title}</h3>
+                    <p className="hiw-timeline-desc">{step.description}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -1159,7 +1187,14 @@ export default function App() {
       {/* 10. FOOTER */}
       <footer>
         <span className="f-logo">✦ AETHER</span>
-        <span className="f-copy">© 2026 AETHER. All rights reserved.</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+          <a href="https://x.com/TheAetherApp" target="_blank" rel="noopener noreferrer" className="nav-social-link">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="14" height="14">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+            </svg>
+          </a>
+          <span className="f-copy">© 2026 AETHER. All rights reserved.</span>
+        </div>
       </footer>
     </div>
   );
