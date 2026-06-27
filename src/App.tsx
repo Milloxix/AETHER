@@ -69,19 +69,20 @@ const TypewriterText = ({ text, delayMs = 500 }: { text: string; delayMs?: numbe
   return (
     <>
       {displayText}
-      {cursorState !== "hidden" && (
-        <motion.span
-          animate={cursorState === "blinking" 
+      <motion.span
+        animate={
+          cursorState === "blinking"
             ? { opacity: [1, 0] }
             : { opacity: 0 }
-          }
-          transition={cursorState === "blinking"
+        }
+        transition={
+          cursorState === "blinking"
             ? { duration: 0.8, repeat: Infinity, repeatType: "reverse" }
             : { duration: 1.5, ease: "easeOut" }
-          }
-          className="inline-block w-[3px] h-[0.9em] bg-white/70 ml-[2px] align-baseline"
-        />
-      )}
+        }
+        className="inline-block w-[3px] h-[0.9em] bg-white/70 ml-[2px] align-baseline"
+        style={{ visibility: cursorState === "hidden" ? "hidden" : "visible" }}
+      />
     </>
   );
 };
