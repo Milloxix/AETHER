@@ -540,7 +540,7 @@ export default function App() {
           at scale.
         </h2>
         <p className="s-sub">
-          From raw writing samples to content that sounds exactly like you — in minutes.
+          From raw writing samples to content that sounds exactly like you in minutes.
         </p>
 
         <div className="hiw-agenda-container hidden md:grid">
@@ -884,8 +884,8 @@ export default function App() {
 
         <div className="compare-outer">
           <div className="compare-header">
-            <div className="c-lbl bad">✕ Generic AI — Status: Rejected by audience</div>
-            <div className="c-lbl good">✦ AETHER Engine — Status: Verified native</div>
+            <div className="c-lbl bad">✕ Generic AI · Status: Rejected by audience</div>
+            <div className="c-lbl good">✦ AETHER Engine · Status: Verified native</div>
           </div>
           <div className="compare-cards">
             {/* Bad AI Output */}
@@ -900,7 +900,7 @@ export default function App() {
             <div className="cc good">
               <div className="cc-badge good">✦ Voice matched</div>
               <p className="cc-text real">
-                After 14 months building in silence — it's live.<br /><br />
+                After 14 months building in silence, it's live.<br /><br />
                 No launch events. No fluff. Just the thing we said we'd ship.
                 <span className="cursor"></span>
               </p>
@@ -942,7 +942,7 @@ export default function App() {
           Your voice runs deeper than you think.
         </h2>
         <p className="s-sub">
-          Sentence rhythm. Word density. How you open, how you close. AETHER reads all of it — then uses it every time you generate.
+          Sentence rhythm. Word density. How you open, how you close. AETHER reads all of it, then uses it every time you generate.
         </p>
 
         <div className="radar-section">
@@ -953,7 +953,7 @@ export default function App() {
               One fingerprint.
             </h3>
             <p>
-              Most tools guess your style. AETHER measures it — across tone, rhythm, vocabulary, edge, and consistency — and locks those scores into every creation.
+              Most tools guess your style. AETHER measures it across tone, rhythm, vocabulary, edge, and consistency, and locks those scores into every creation.
             </p>
             <div className="radar-metrics">
               {radarMetrics.map((m) => (
@@ -1043,7 +1043,7 @@ export default function App() {
                 <line x1="0" y1="0" x2="-59" y2="81" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />
                 <line x1="0" y1="0" x2="-95" y2="-31" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />
 
-                {/* 'average writer' polygon — behind 'you' polygon */}
+                {/* 'average writer' polygon behind 'you' polygon */}
                 <motion.polygon 
                   points="0,-53 41,-13 34,46 -29,37 -43,-14" 
                   fill="rgba(255,255,255,0.15)" 
@@ -1056,7 +1056,7 @@ export default function App() {
                   style={{ transformOrigin: "0px 0px" }}
                 />
 
-                {/* 'you' polygon — filled with brighter stroke */}
+                {/* 'you' polygon filled with brighter stroke */}
                 <motion.polygon 
                   points="0,-88 68,-22 56,76 -48,62 -72,-24" 
                   fill="rgba(255,255,255,0.07)" 
@@ -1221,7 +1221,7 @@ export default function App() {
               <p className="pc-price">$29 <span>/ month</span></p>
             ) : (
               <p className="pc-price">
-                $23 <span style={{ fontSize: "13px" }}>/ month <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.22)", marginLeft: "4px" }}>— billed annually ($276/yr)</span> <span className="save-pill" style={{ display: "inline-block", marginLeft: "6px" }}>save $72</span></span>
+                $23 <span style={{ fontSize: "13px" }}>/ month <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.22)", marginLeft: "4px" }}> billed annually ($276/yr)</span> <span className="save-pill" style={{ display: "inline-block", marginLeft: "6px" }}>save $72</span></span>
               </p>
             )}
 
