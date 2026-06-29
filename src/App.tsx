@@ -1218,11 +1218,17 @@ export default function App() {
             </div>
 
             {!isAnnual ? (
-              <p className="pc-price">$29 <span>/ month</span></p>
+              <>
+                <p className="pc-price">$19 <span>/ month</span></p>
+                <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)", marginTop: "4px" }}>Early access pricing. Increases to $29 at launch.</p>
+              </>
             ) : (
-              <p className="pc-price">
-                $23 <span style={{ fontSize: "13px" }}>/ month <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.22)", marginLeft: "4px" }}> billed annually ($276/yr)</span> <span className="save-pill" style={{ display: "inline-block", marginLeft: "6px" }}>save $72</span></span>
-              </p>
+              <>
+                <p className="pc-price">
+                  $15.20 <span style={{ fontSize: "13px" }}>/ month <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.22)", marginLeft: "4px" }}>billed annually ($182.40/yr)</span> <span className="save-pill" style={{ display: "inline-block", marginLeft: "6px" }}>save $45.60</span></span>
+                </p>
+                <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)", marginTop: "4px" }}>Early access pricing. Increases to $29 at launch.</p>
+              </>
             )}
 
             <div className="pc-feats">
